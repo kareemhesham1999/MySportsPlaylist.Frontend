@@ -1,0 +1,49 @@
+<app-header></app-header>
+
+<div class="match-detail-container">
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!loading && !error && match" class="match-content">
+    <div class="match-header">
+      <h1 class="match-title">{{ match.title }}</h1>
+      <div class="match-status">
+        <mat-chip [color]="match.isLive ? 'accent' : 'primary'" selected>
+          <mat-icon>{{ match.isLive ? 'live_tv' : 'video_library' }}</mat-icon>
+          {{ match.isLive ? 'LIVE' : 'REPLAY' }}
+        </mat-chip>
+      </div>
+    </div>
+    
+    <div class="video-container">
+      <iframe *ngIf="safeVideoUrl" [src]="safeVideoUrl" frameborder="0" allowfullscreen></iframe>
+    </div>
+    
+    <mat-card class="match-info">
+      <mat-card-content>
+        <h2>{{ match.teams }}</h2>
+        <p class="match-time">
+          <mat-icon>event</mat-icon> {{ match.startTime | date:'medium' }}
+        </p>
+        <p class="match-description">{{ match.description }}</p>
+      </mat-card-content>
+      <mat-card-actions *ngIf="isUserLoggedIn">
+        <button 
+          mat-raised-button 
+          color="accent" 
+          (click)="addToPlaylist()" 
+          [disabled]="isAddingToPlaylist">
+          <mat-icon>playlist_add</mat-icon>
+          {{ isAddingToPlaylist ? 'Adding...' : 'Add to Playlist' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<app-footer></app-footer>

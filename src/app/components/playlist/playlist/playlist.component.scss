@@ -1,0 +1,104 @@
+.playlist-container {
+  max-width: 1200px;
+  margin: 80px auto 20px;
+  padding: 20px;
+}
+
+.page-title {
+  margin-bottom: 20px;
+  color: #3f51b5;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.error-message {
+  color: #f44336;
+  text-align: center;
+  padding: 20px;
+  background-color: #ffebee;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.playlist-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.match-card {
+  display: flex;
+  overflow: hidden;
+}
+
+.match-thumbnail {
+  position: relative;
+  width: 240px;
+  min-width: 240px;
+  
+  img {
+    width: 100%;
+    height: 135px;
+    object-fit: cover;
+  }
+  
+  .match-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+.match-info {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  
+  h3 {
+    margin: 0 0 8px;
+    color: #333;
+  }
+  
+  .match-teams {
+    margin: 0 0 8px;
+    color: #555;
+  }
+  
+  .match-time {
+    margin: 0 0 16px;
+    color: #777;
+    font-size: 0.9rem;
+  }
+  
+  .match-actions {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.empty-playlist {
+  text-align: center;
+  padding: 40px;
+  
+  p {
+    margin-bottom: 20px;
+    color: #555;
+  }
+}
+
+@media (max-width: 768px) {
+  .match-card {
+    flex-direction: column;
+  }
+  
+  .match-thumbnail {
+    width: 100%;
+  }
+}

@@ -1,0 +1,58 @@
+<app-header></app-header>
+
+<div class="playlist-container">
+  <h1 class="page-title">My Playlist</h1>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!loading && !error && playlist">
+    <div *ngIf="playlist.matches && playlist.matches.length > 0" class="playlist-content">
+      <mat-card class="match-card" *ngFor="let match of playlist.matches">
+        <div class="match-thumbnail">
+          <img [src]="match.thumbnailUrl || 'assets/default-thumbnail.jpg'" [alt]="match.title">
+          <div class="match-status">
+            <mat-chip [color]="match.isLive ? 'accent' : 'primary'" selected>
+              {{ match.isLive ? 'LIVE' : 'REPLAY' }}
+            </mat-chip>
+          </div>
+        </div>
+        
+        <div class="match-info">
+          <h3>{{ match.title }}</h3>
+          <p class="match-teams">{{ match.teams }}</p>
+          <p class="match-time">{{ match.startTime | date:'medium' }}</p>
+          
+          <div class="match-actions">
+            <button mat-raised-button color="primary" [routerLink]="['/matches', match.id]">
+              <mat-icon>play_circle_outline</mat-icon>
+              Watch
+            </button>
+            <button mat-icon-button color="warn" matTooltip="Remove from playlist" 
+                    (click)="removeFromPlaylist(match)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    
+    <div *ngIf="!playlist.matches || playlist.matches.length === 0" class="empty-playlist">
+      <mat-card>
+        <mat-card-content>
+          <p>Your playlist is empty. Browse available matches and add them to your playlist.</p>
+          <button mat-raised-button color="primary" routerLink="/matches">
+            Browse Matches
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <span>MySportsPlaylist</span>
+  <span class="spacer"></span>
+  <nav>
+    <a mat-button routerLink="/matches" routerLinkActive="active">Matches</a>
+    <ng-container *ngIf="currentUser">
+      <a mat-button routerLink="/playlist" routerLinkActive="active">My Playlist</a>
+      <button mat-button (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-container *ngIf="!currentUser">
+      <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
+      <a mat-button routerLink="/register" routerLinkActive="active">Register</a>
+    </ng-container>
+  </nav>
+</mat-toolbar>
