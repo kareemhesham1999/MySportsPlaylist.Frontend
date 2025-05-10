@@ -1,0 +1,50 @@
+<div class="home-container">
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Welcome to MySportsPlaylist</h1>
+      <p class="lead">
+        Your personal hub for sports matches. Watch live games, catch up on replays, 
+        and build your own sports playlist.
+      </p>
+      
+      <div class="cta-buttons">
+        <button routerLink="/matches" class="btn btn-primary">Browse Matches</button>
+        <button *ngIf="!isLoggedIn" routerLink="/register" class="btn btn-outline">
+          Sign Up Now
+        </button>
+        <button *ngIf="isLoggedIn" routerLink="/playlist" class="btn btn-outline">
+          My Playlist
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🏆</div>
+      <h3>Live Matches</h3>
+      <p>
+        Watch live sports matches as they happen. Never miss a moment of action 
+        with our high-quality streams.
+      </p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">⏱️</div>
+      <h3>Match Replays</h3>
+      <p>
+        Missed a game? No problem. Catch up with our extensive library of match 
+        replays available on demand.
+      </p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>Custom Playlists</h3>
+      <p>
+        Create your own personal sports playlist. Save your favorite matches and 
+        watch them anytime.
+      </p>
+    </div>
+  </div>
+</div>

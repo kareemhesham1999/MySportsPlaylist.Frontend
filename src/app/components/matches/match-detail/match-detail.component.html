@@ -1,0 +1,66 @@
+<div class="match-detail-container">
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading match...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button (click)="goBack()" class="btn btn-primary">Go Back</button>
+  </div>
+
+  <div *ngIf="!loading && !error && match" class="match-content">
+    <div class="match-header">
+      <h2>{{ match.title }}</h2>
+      <div class="match-info">
+        <span class="match-competition">{{ match.competition }}</span>
+        <span class="match-date">{{ match.date | date : "medium" }}</span>
+        <span class="match-status" [class.live]="match.status === 'Live'">
+          {{ match.status }}
+        </span>
+      </div>
+
+      <div class="match-actions">
+        <button (click)="goBack()" class="btn btn-outline">
+          Back to Matches
+        </button>
+
+        <button
+          *ngIf="isLoggedIn && !isInPlaylist"
+          (click)="addToPlaylist()"
+          class="btn btn-primary"
+          [disabled]="playlistLoading"
+        >
+          <span *ngIf="playlistLoading" class="spinner-sm"></span>
+          Add to Playlist
+        </button>
+
+        <button
+          *ngIf="isLoggedIn && isInPlaylist"
+          (click)="removeFromPlaylist()"
+          class="btn btn-danger"
+          [disabled]="playlistLoading"
+        >
+          <span *ngIf="playlistLoading" class="spinner-sm"></span>
+          Remove from Playlist
+        </button>
+      </div>
+    </div>
+
+    <div class="video-container">
+      <video
+        *ngIf="match.streamUrl"
+        [src]="match.streamUrl"
+        controls
+        autoplay
+        class="match-video"
+      >
+        Your browser does not support video playback.
+      </video>
+
+      <div *ngIf="!match.streamUrl" class="no-video">
+        <p>No video stream available for this match.</p>
+      </div>
+    </div>
+  </div>
+</div>

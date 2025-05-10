@@ -1,0 +1,50 @@
+<div class="playlist-container">
+  <h2>My Playlist</h2>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading your playlist...</p>
+  </div>
+
+  <div *ngIf="!loading && matches.length === 0" class="empty-playlist">
+    <p>Your playlist is empty.</p>
+    <button routerLink="/matches" class="btn btn-primary">
+      Browse Matches
+    </button>
+  </div>
+
+  <div *ngIf="!loading && matches.length > 0" class="match-list">
+    <div *ngFor="let match of matches" class="match-card">
+      <div class="match-thumbnail">
+        <img
+          [src]="match.thumbnailUrl || 'assets/default-match.jpg'"
+          alt="{{ match.title }}"
+        />
+        <span class="match-status" [class.live]="match.status === 'Live'">
+          {{ match.status }}
+        </span>
+      </div>
+
+      <div class="match-details">
+        <h3>{{ match.title }}</h3>
+        <p class="match-competition">{{ match.competition }}</p>
+        <p class="match-date">{{ match.date | date : "medium" }}</p>
+
+        <div class="match-actions">
+          <button [routerLink]="['/matches', match.id]" class="btn btn-primary">
+            Watch
+          </button>
+
+          <button
+            (click)="removeFromPlaylist(match.id)"
+            class="btn btn-danger"
+            [disabled]="removingIds[match.id]"
+          >
+            <span *ngIf="removingIds[match.id]" class="spinner-sm"></span>
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
