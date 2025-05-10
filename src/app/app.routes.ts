@@ -13,11 +13,11 @@ export const routes: Routes = [
       },
       {
         path: 'matches',
-        loadComponent: () => import('./components/matches/match-list.component').then(m => m.MatchListComponent)
+        loadComponent: () => import('./components/matches/match-list/match-list.component').then(m => m.MatchListComponent)
       },
       {
         path: 'matches/:id',
-        loadComponent: () => import('./components/matches/match-detail.component').then(m => m.MatchDetailComponent)
+        loadComponent: () => import('./components/matches/match-detail/match-detail.component').then(m => m.MatchDetailComponent)
       },
       {
         path: 'playlist',

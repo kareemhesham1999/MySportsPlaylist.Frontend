@@ -10,7 +10,7 @@ import { Match } from '../models/match.model';
 })
 export class MatchService {
   private apiUrl = `${environment.apiUrl}/matches`;
-  private refreshInterval = 3000; // 45 seconds - a good middle value between 30-60 seconds
+  private refreshInterval = 45000; // 45 seconds - between 30-60 seconds
   private matchesSubject = new BehaviorSubject<Match[]>([]);
   private liveMatchesSubject = new BehaviorSubject<Match[]>([]);
   private replayMatchesSubject = new BehaviorSubject<Match[]>([]);

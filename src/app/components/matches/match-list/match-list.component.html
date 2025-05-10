@@ -1,0 +1,106 @@
+<div class="matches-container">
+  <h2>Sports Matches</h2>
+
+  <div class="filters">
+    <div class="search-box">
+      <input
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Search matches..."
+        class="search-input"
+      />
+    </div>
+
+    <div class="filter-buttons">
+      <button
+        (click)="filterMatches('all')"
+        [class.active]="currentFilter === 'all'"
+        class="filter-btn"
+      >
+        All
+      </button>
+      <button
+        (click)="filterMatches('live')"
+        [class.active]="currentFilter === 'live'"
+        class="filter-btn"
+      >
+        Live
+      </button>
+      <button
+        (click)="filterMatches('replay')"
+        [class.active]="currentFilter === 'replay'"
+        class="filter-btn"
+      >
+        Replay
+      </button>
+    </div>
+  </div>
+
+  <div class="last-updated">
+    <span
+      >Auto-refreshing every <strong>45 seconds</strong>. Last updated:
+      {{ lastUpdated | date : "medium" }}</span
+    >
+    <button (click)="manualRefresh()" class="refresh-btn">
+      <span *ngIf="refreshing" class="spinner-sm"></span>
+      Refresh Now
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading matches...</p>
+  </div>
+
+  <div *ngIf="!loading && matches.length === 0" class="no-matches">
+    <p>No matches found. Try adjusting your search or filters.</p>
+  </div>
+
+  <div class="match-grid">
+    <div *ngFor="let match of matches" class="match-card">
+      <div class="match-thumbnail">
+        <img
+          [src]="match.thumbnailUrl || 'assets/default-match.jpg'"
+          alt="{{ match.title }}"
+        />
+        <span class="match-status" [class.live]="match.status === 'Live'">
+          {{ match.status }}
+        </span>
+      </div>
+
+      <div class="match-details">
+        <h3>{{ match.title }}</h3>
+        <p class="match-competition">{{ match.competition }}</p>
+        <p class="match-date">
+          {{ match.date | date : "medium" }}
+        </p>
+
+        <div class="match-actions">
+          <button [routerLink]="['/matches', match.id]" class="btn btn-primary">
+            Watch
+          </button>
+
+          <button
+            *ngIf="isLoggedIn && !isInPlaylist(match.id)"
+            (click)="addToPlaylist(match.id)"
+            class="btn btn-outline"
+            [disabled]="playlistLoading[match.id]"
+          >
+            <span *ngIf="playlistLoading[match.id]" class="spinner-sm"></span>
+            Add to Playlist
+          </button>
+
+          <button
+            *ngIf="isLoggedIn && isInPlaylist(match.id)"
+            (click)="removeFromPlaylist(match.id)"
+            class="btn btn-danger"
+            [disabled]="playlistLoading[match.id]"
+          >
+            <span *ngIf="playlistLoading[match.id]" class="spinner-sm"></span>
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
